@@ -6,12 +6,18 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/tasks")
+@CrossOrigin(origins = "*")
 public class TaskController {
 
     private final TaskService taskService;
@@ -22,8 +28,12 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+    public Page<Task> getAllTasks(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(defaultValue = "id") String sortBy
+    ) {
+        return taskService.getAllTasks(page, size, sortBy);
     }
 
     @GetMapping("/{id}")
@@ -48,7 +58,7 @@ public class TaskController {
             return ResponseEntity.notFound().build();
         }
     }
-
+        
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         try {
@@ -57,5 +67,10 @@ public class TaskController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/completed")
+    public List<Task> getCompletedTasks() {
+        return taskService.getCompletedTasks();
     }
 }

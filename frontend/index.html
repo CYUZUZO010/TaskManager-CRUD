@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskManager Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- Auth Container -->
+    <div id="authContainer" class="container auth-container">
+        <div class="glass-panel text-center">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i>
+                <h2>TaskMaster</h2>
+            </div>
+            <p class="subtitle">Log in to manage your tasks</p>
+            
+            <form id="loginForm" class="form">
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span>Login</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <div id="loginError" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="appContainer" class="container app-container hidden">
+        <header class="header">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i>
+                <h1>TaskMaster</h1>
+            </div>
+            <div class="header-actions">
+                <span id="welcomeMessage" class="welcome-text"></span>
+                <button id="logoutBtn" class="btn btn-icon" title="Logout">
+                    <i class="fa-solid fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="glass-panel create-task-panel">
+                <h3>Create New Task</h3>
+                <form id="createTaskForm" class="form row-form">
+                    <div class="input-group flex-grow">
+                        <input type="text" id="taskTitle" placeholder="Task Title" required>
+                    </div>
+                    <div class="input-group flex-grow">
+                        <input type="text" id="taskDescription" placeholder="Description (Optional)">
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add</span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="tasks-header">
+                <h3>Your Tasks</h3>
+                <div class="task-controls">
+                    <div class="sort-control">
+                        <label for="sortSelect">Sort by:</label>
+                        <select id="sortSelect">
+                            <option value="id">Creation Date</option>
+                            <option value="title">Title</option>
+                            <option value="completed">Status</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tasksList" class="tasks-list">
+                <!-- Tasks will be injected here -->
+                <div class="loading-spinner">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                    <p>Loading tasks...</p>
+                </div>
+            </div>
+
+            <div class="pagination-controls glass-panel">
+                <button id="prevPage" class="btn btn-icon btn-sm" disabled>
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <span id="pageInfo" class="page-info">Page 1 of 1</span>
+                <button id="nextPage" class="btn btn-icon btn-sm" disabled>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
